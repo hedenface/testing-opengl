@@ -3,20 +3,23 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 
-GLubyte rasters[24] = {
-    0xc0, 0x00, 0xc0, 0x00, 0xc0, 0x00, 0xc0, 0x00, 0xc0, 0x00,
-    0xff, 0x00, 0xff, 0x00, 0xc0, 0x00, 0xc0, 0x00, 0xc0, 0x00,
-    0xff, 0xc0, 0xff, 0xc0
+/*
+
+    this makes a 2x2 block of different colored pixels like:
+
+    (blue) (black)
+    (red)  (green)
+
+*/
+GLubyte pixels[16] = { 
+    0xff, 0x00, 0x00, 0x00,   0x00, 0xff, 0x00, 0x00,
+    0x00, 0x00, 0xff, 0x00,   0x00, 0x00, 0x00, 0x00
 };
 
 void display(void)
 {
     glRasterPos2i(100, 200);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1, 0, 0);
-    glBitmap(10, 12, 0, 0, 40, -10, rasters);
-    glBitmap(10, 12, 0, 0, 40, -10, rasters);
-    glBitmap(10, 12, 0, 0, 40, -10, rasters);
+    glDrawPixels(2, 2, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     glFlush();
 }
 

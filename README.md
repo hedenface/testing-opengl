@@ -73,3 +73,10 @@ At first glance, you'd think that this would be written from upper left corner. 
 ```
 
 `glBitmap()` arguments are as follows: 1st pair is the width and height of the bitmap, second is the location of the bitmap origin relative to the lower left corner of the bitmap image, the third specifies x and y offsets to be added to the current raster position after the bitmap has been drawn, and the final argument is a pointer to the bitmap image itself.
+
+## 3
+
+```
+gcc 3.c -o 3 -lglut -lGLU -lGL
+./3
+```
