@@ -4,22 +4,29 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int width = 64;
-int height = 64;
+int width = 0;
+int height = 0;
 unsigned char * data = NULL;
 
 void load_image_data(const char * image_path)
 {
     FILE * file = fopen(image_path, "rb");
+    unsigned char info[54];
 
     if (file == NULL) {
         printf("Unable to open <%s>!\n", image_path);
         exit(1);
     }
 
+    fread(info, sizeof(unsigned char), 54, file);
+
+    width = *(int *)&info[18];
+    height = *(int *)&info[22];
+
     data = calloc(width * height * 3, sizeof(unsigned char));
 
-    fread(data, width * height * 3, 1, file);
+    fread(data, sizeof(unsigned char), width * height * 3, file);
+
     fclose(file);
 }
 
@@ -56,23 +63,39 @@ void display(void)
     glFlush();
 }
 
+void init(void)
+{
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glClearColor(0, 0, 0, 0);
+}
+
+void keyboard(unsigned char key, int x, int y)
+{
+    if (key == 27) {
+        exit(0);
+    }
+}
+
 int main(int argc, char ** argv)
 {
-    load_image_data("squares.bmp");
+    if (argc < 1) {
+        printf("%s\n", "First argument needs to be filename of a bitmap.");
+        exit(1);
+    }
+
+    load_image_data(argv[1]);
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(width, height);
     glutInitWindowPosition(0, 0);
-    glutCreateWindow("Squares!");
+    glutCreateWindow("Hi there");
 
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glClearColor(0, 0, 0, 0);
+    init();
 
+    glutKeyboardFunc(keyboard);
     glutDisplayFunc(display);
 
     glutMainLoop();
-
-    free(data);
     return 0;
 }
