@@ -3,7 +3,7 @@
 ## Prerequisites
 
 ```
-sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
+sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev libpng-dev
 ```
 
 ## 1
@@ -76,7 +76,30 @@ At first glance, you'd think that this would be written from upper left corner. 
 
 ## 3
 
+Nothing very special here. Just expanding on `2` a bit.
+
 ```
 gcc 3.c -o 3 -lglut -lGLU -lGL
 ./3
+```
+
+## 4
+
+Now we're getting somewhere. We pass an argument in to the application which is the file path of a bitmap image. This then loads that image, and displays it.
+
+```
+gcc 4.c -o 4 -lglut -lGLU -lGL
+./4 squares.bmp
+```
+
+Some notes: this only works on 24-bit bitmaps. We expect a byte per color, so 3 colors * 1 byte = 24 bits. Duh
+
+## 5
+
+Well, what happens when we want transparency? We could mark bits of a certain color as transparent in a 24-bit bitmap, but that seems like a bunch of work. Now we utilize the libpng we installed as a prerequisite, and load a png in a similar fashion to `./4`
+
+```
+gcc 5.c -g -o 5 -lglut -lGLU -lGL -lpng
+./5 sprite.png
+./5 testing1.png
 ```
