@@ -103,3 +103,14 @@ gcc 5.c -g -o 5 -lglut -lGLU -lGL -lpng
 ./5 sprite.png
 ./5 testing1.png
 ```
+
+## 6
+
+This is a VERY BASIC program to move a sprite around on top of a bg image. To be honest, I hobbled this together from many different sources, and only guessed mostly at what needed to be done until I came to this exact rendition.
+
+```
+gcc 6.c -g -o 6 -lglut -lGLU -lGL -lpng
+./6 testing1.png sprite.png
+```
+
+Then use the arrow keys to move the sprite around ..until the memory in your PC runs out for some reason and everything gets `kill -9`'d.
