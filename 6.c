@@ -152,12 +152,12 @@ void specialKeyboard(int key, int x, int y)
     switch (key)
     {
     case GLUT_KEY_LEFT:
-        sprite_x++;
+        sprite_x--;
         glutPostRedisplay();
         break;
 
     case GLUT_KEY_RIGHT:
-        sprite_x--;
+        sprite_x++;
         glutPostRedisplay();
         break;
 
